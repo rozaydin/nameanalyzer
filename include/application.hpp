@@ -6,27 +6,35 @@
 #include <vector>
 #include <algorithm>
 #include <memory>
+//
+#include "util.hpp"
 
-namespace app {
+namespace app
+{
 
-    class NameAnalyzer {
+class NameAnalyzer
+{
 
     // std::unique_ptr<std::unordered_map<std::string, std::vector<std::string>>> orderedAdjectives;
 
 public:
     //
     std::unique_ptr<std::unordered_map<std::string, std::vector<std::string>>>
-    orderAdjectives(std::vector<std::string> &adjectives) {
+    orderAdjectives(std::vector<std::string> &adjectives)
+    {
 
         using itemMap = std::unordered_map<std::string, std::vector<std::string>>;
         std::unique_ptr<itemMap> orderedAdjectives = std::make_unique<itemMap>();
         //
-        for (auto &adjective : adjectives) {
-            if (adjective.length() > 0) {
+        for (auto &adjective : adjectives)
+        {
+            if (adjective.length() > 0)
+            {
                 char startChar = adjective[0];
                 const std::string key{startChar};
                 //
-                if (orderedAdjectives->find(key) == orderedAdjectives->end()) {
+                if (orderedAdjectives->find(key) == orderedAdjectives->end())
+                {
                     // key not present insert
                     std::pair<std::string, std::vector<std::string>> pair = std::make_pair(key,
                                                                                            std::vector<std::string>{});
@@ -41,14 +49,18 @@ public:
         return orderedAdjectives;
     };
 
-    std::vector<std::string> loadLibrary(std::string path) {
+    std::vector<std::string> loadLibrary(std::string path)
+    {
 
         std::vector<std::string> adjectives;
         std::ifstream file(path);
-        if (file.is_open()) {
+        if (file.is_open())
+        {
             std::string line;
-            while (std::getline(file, line)) {
-                if (!(std::all_of(line.begin(), line.end(), isspace))) {
+            while (std::getline(file, line))
+            {
+                if (!(std::all_of(line.begin(), line.end(), isspace)))
+                {
                     adjectives.push_back(line);
                 }
             }
@@ -57,10 +69,12 @@ public:
         return adjectives;
     }
 
-    std::vector<std::string> analyzeName(std::string name,  std::unique_ptr<std::unordered_map<std::string, std::vector<std::string>>>& orderedAdjectives) {
+    std::vector<std::string> analyzeName(std::string name, std::unique_ptr<std::unordered_map<std::string, std::vector<std::string>>> &orderedAdjectives)
+    {
 
         std::vector<std::string> result;
-        for (char ch : name) {
+        for (char ch : name)
+        {
             result.push_back(findAdjective(ch, orderedAdjectives));
         }
         //
@@ -68,14 +82,13 @@ public:
     }
 
     std::string findAdjective(char ch,
-                              std::unique_ptr<std::unordered_map<std::string, std::vector<std::string>>>& orderedAdjectives) {
+                              std::unique_ptr<std::unordered_map<std::string, std::vector<std::string>>> &orderedAdjectives)
+    {
         std::vector<std::string> &adjectives = orderedAdjectives->at(std::string{ch});
         const int adjectivesSize = adjectives.size();
-        int randomIndex = (std::rand() % adjectivesSize);
-        std::cout << " randomIndex: " << randomIndex << std::endl;
+        int randomIndex = util::generateRandomNumber(0, (adjectivesSize-1));
         return adjectives[randomIndex];
     }
-
 };
 
-}
+} // namespace app
