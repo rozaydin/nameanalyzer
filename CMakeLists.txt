@@ -16,6 +16,19 @@ FATAL: In-source builds are not allowed.
 ")
 endif()
 
+set(EXE_NAME
+${PROJECT_NAME}
+) 
+
+set(LIB_NAME
+${PROJECT_NAME}_lib
+)
+
+set(TEST_EXE_NAME
+${PROJECT_NAME}_test
+)
+
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 include(include_directories)
 include(local)
+include(test)
