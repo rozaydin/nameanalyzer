@@ -16,4 +16,6 @@ int main(int argc, char *argv[]) {
     for (const std::string& letter : result) {
         std::cout << letter << std::endl;
     }
+
+    sayHello();
 }

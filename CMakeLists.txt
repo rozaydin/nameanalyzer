@@ -8,6 +8,9 @@ project( NameAnalyzer
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++2a" )
 
+# Release MinSizeRel
+set(CMAKE_BUILD_TYPE Release)
+
 # Disable in-source builds to prevent source tree corruption.
 if(" ${CMAKE_SOURCE_DIR}" STREQUAL " ${CMAKE_BINARY_DIR}")
   message(FATAL_ERROR "
@@ -31,4 +34,4 @@ ${PROJECT_NAME}_test
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 include(include_directories)
 include(local)
-include(test)
+# include(test)

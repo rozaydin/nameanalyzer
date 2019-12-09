@@ -1,9 +1,13 @@
 add_executable(${EXE_NAME}
 src/main.cpp
+src/application.cpp
+src/util.cpp
 )
 
-add_library(${LIB_NAME}
+add_library(${LIB_NAME} SHARED
 src/main.cpp
+src/application.cpp
+src/util.cpp
 )
 
 add_custom_command(
